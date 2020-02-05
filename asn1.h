@@ -1,15 +1,14 @@
 #ifndef ASN1_H
 #define ASN1_H
 
-struct asn1struct
-{
- int constructed;  // bit 6 of the identifier byte
- int tag_class;   // bits 7-8 of the identifier byte
- int tag;      // bits 1-5 of the identifier byte
- int length;
- const unsigned char *data;
- struct asn1struct *children;
- struct asn1struct *next;
+struct asn1struct {
+  int constructed; // bit 6 of the identifier byte
+  int tag_class;   // bits 7-8 of the identifier byte
+  int tag;         // bits 1-5 of the identifier byte
+  int length;
+  const unsigned char *data;
+  struct asn1struct *children;
+  struct asn1struct *next;
 };
 
 #define ASN1_CLASS_UNIVERSAL 0
@@ -50,17 +49,15 @@ struct asn1struct
 #define ASN1_CHARACTER_STRING 29
 #define ASN1_BMP_STRING 30
 
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int asn1parse( const unsigned char *buffer, 
-               int length, 
-               struct asn1struct *top_level_token );
-void asn1free( struct asn1struct *node );
-int pem_decode( unsigned char *pem_buffer, unsigned char *der_buffer );
-
+int asn1parse(const unsigned char *buffer, int length,
+              struct asn1struct *top_level_token);
+void asn1free(struct asn1struct *node);
+int pem_decode(unsigned char *pem_buffer, unsigned char *der_buffer);
+void asn1show(int depth, struct asn1struct *certificate);
 #ifdef __cplusplus
 }
 #endif

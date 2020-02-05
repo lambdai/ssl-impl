@@ -12,7 +12,6 @@
 #include "asn1.h"
 #include "base64.h"
 
-
 int asn1parse(const unsigned char *buffer, int length,
               struct asn1struct *top_level_token) {
   unsigned int tag;
