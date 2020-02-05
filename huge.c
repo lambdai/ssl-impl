@@ -220,7 +220,7 @@ void set_huge(huge *h, unsigned int val) {
   h->size = 4;
 
   // Figure out the minimum amount of space this "val" will take
-  // up in chars (leave at least one byte, though, if “val” is 0).
+  // up in chars (leave at least one byte, though, if ï¿½valï¿½ is 0).
   for (mask = 0xFF000000; mask > 0x000000FF; mask >>= 8) {
     if (val & mask) {
       break;
@@ -231,7 +231,7 @@ void set_huge(huge *h, unsigned int val) {
   h->rep = (unsigned char *)malloc(h->size);
 
   // Now work backwards through the int, masking off each 8-bit
-  // byte (up to the first 0 byte) and copy it into the “huge”
+  // byte (up to the first 0 byte) and copy it into the ï¿½hugeï¿½
   // array in big-endian format.
   mask = 0x000000FF;
   shift = 0;
@@ -352,7 +352,7 @@ static void right_shift(huge *h1) {
  * overwrites quotient). The dividend is the remainder of the
  * division (if that's important to the caller). The divisor will
  * be modified by this routine, but it will end up back where it
- * “started”.
+ * ï¿½startedï¿½.
  */
 void divide(huge *dividend, huge *divisor, huge *quotient) {
   int bit_size, bit_position;
@@ -369,7 +369,7 @@ void divide(huge *dividend, huge *divisor, huge *quotient) {
 
   // overestimates a bit in some cases
   if (quotient) {
-    quotient->sign = !(dividend->sign == dividend->sign);
+    quotient->sign = !(dividend->sign == divisor->sign);
     quotient->size = (bit_size / 8) + 1;
     quotient->rep =
         (unsigned char *)calloc(quotient->size, sizeof(unsigned char));

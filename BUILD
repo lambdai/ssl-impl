@@ -51,7 +51,6 @@ cc_library(
     ],
 )
 
-
 cc_library(
     name = "des",
     srcs = [
@@ -64,7 +63,6 @@ cc_library(
         ":hex",
     ],
 )
-
 
 cc_library(
     name = "rc4",
@@ -95,7 +93,7 @@ cc_library(
         "ecc_int.h",
     ],
     deps = [
-      #  ":hex",
+        #  ":hex",
     ],
 )
 
@@ -123,5 +121,81 @@ cc_library(
     deps = [
         ":hex",
         ":huge",
+    ],
+)
+
+cc_library(
+    name = "ecc",
+    srcs = [
+        "ecc.c",
+    ],
+    hdrs = [
+        "ecc.h",
+    ],
+    deps = [
+        ":huge",
+    ],
+)
+
+cc_library(
+    name = "sha",
+    srcs = [
+        "sha.c",
+    ],
+    hdrs = [
+        "digest.h",
+        "sha.h",
+    ],
+)
+
+cc_library(
+    name = "md5",
+    srcs = [
+        "md5.c",
+    ],
+    hdrs = [
+        "digest.h",
+        "md5.h",
+    ],
+)
+
+cc_library(
+    name = "dsa",
+    srcs = [
+        "dsa.c",
+    ],
+    hdrs = [
+        "dsa.h",
+    ],
+    deps = [
+        ":hex",
+        ":huge",
+        ":sha",
+    ],
+)
+
+cc_library(
+    name = "ecdsa",
+    srcs = [
+        "ecdsa.c",
+    ],
+    hdrs = [
+        "ecdsa.h",
+    ],
+    deps = [
+        ":dsa",
+        ":ecc",
+        ":sha",
+    ],
+)
+
+cc_library(
+    name = "digest",
+    srcs = [
+        "digest.c",
+    ],
+    deps = [
+        ":md5",
+        ":sha",
     ],
 )
