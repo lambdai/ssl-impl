@@ -222,6 +222,19 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "asn1",
+    srcs = [
+        "asn1.c",
+    ],
+    hdrs = [
+        "asn1.h",
+    ],
+    deps = [
+        ":base64",
+    ],
+)
+
 cc_binary(
     name = "digest-main",
     srcs = [
@@ -231,11 +244,23 @@ cc_binary(
     local_defines = [
         "TEST_DIGEST=true",
     ],
-    # hdrs = [
-    # ],
     deps = [
         ":hex",
         ":md5",
         ":sha",
+    ],
+)
+
+cc_binary(
+    name = "asn1-main",
+    srcs = [
+        "asn1.c",
+        "asn1.h",
+    ],
+    local_defines = [
+        "TEST_ASN1=true",
+    ],
+    deps = [
+        ":base64",
     ],
 )
