@@ -31,7 +31,6 @@ int hex_decode(const unsigned char *input, unsigned char **decoded) {
                                  : ((tolower(input[i + 1])) - 'a' + 10));
     }
   }
-
   return len;
 }
 

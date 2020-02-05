@@ -1,3 +1,5 @@
+package(default_visibility = ["//visibility:public"])
+
 cc_library(
     name = "base64",
     srcs = [
@@ -190,11 +192,49 @@ cc_library(
 )
 
 cc_library(
+    name = "hmac",
+    srcs = [
+        "hmac.c",
+    ],
+    hdrs = [
+        "digest.h",
+        "hmac.h",
+    ],
+    deps = [
+        ":hex",
+        ":md5",
+        ":sha",
+    ],
+)
+
+cc_library(
     name = "digest",
     srcs = [
         "digest.c",
     ],
+    hdrs = [
+        "digest.h",
+    ],
     deps = [
+        ":hex",
+        ":md5",
+        ":sha",
+    ],
+)
+
+cc_binary(
+    name = "digest-main",
+    srcs = [
+        "digest.c",
+        "digest.h",
+    ],
+    local_defines = [
+        "TEST_DIGEST=true",
+    ],
+    # hdrs = [
+    # ],
+    deps = [
+        ":hex",
         ":md5",
         ":sha",
     ],

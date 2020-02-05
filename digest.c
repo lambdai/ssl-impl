@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "hex.h"
 #include "md5.h"
 #include "sha.h"
 

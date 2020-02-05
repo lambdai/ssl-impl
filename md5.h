@@ -7,7 +7,11 @@
 
 #include "digest.h"
 
-unsigned int md5_initial_hash[MD5_RESULT_SIZE];
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+extern unsigned int md5_initial_hash[MD5_RESULT_SIZE];
 
 int md5_hash(const unsigned char *input, int len,
              unsigned int hash[MD5_RESULT_SIZE]);
@@ -17,4 +21,7 @@ void md5_block_operate(const unsigned char *input,
 void md5_finalize(unsigned char *padded_block, int length_in_bits);
 void new_md5_digest(digest_ctx *context);
 
+#ifdef __cplusplus
+}
+#endif
 #endif

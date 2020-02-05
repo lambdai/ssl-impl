@@ -1,11 +1,6 @@
 #ifndef DIGEST_H
 #define DIGEST_H
 
-int digest_hash(unsigned char *input, int len, unsigned int *hash,
-                void (*block_operate)(const unsigned char *input,
-                                      unsigned int hash[]),
-                void (*block_finalize)(unsigned char *block, int length));
-
 #define DIGEST_BLOCK_SIZE 64
 #define INPUT_BLOCK_SIZE 56
 
@@ -22,8 +17,21 @@ typedef struct {
   int block_len;
 } digest_ctx;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+int digest_hash(unsigned char *input, int len, unsigned int *hash,
+                void (*block_operate)(const unsigned char *input,
+                                      unsigned int hash[]),
+                void (*block_finalize)(unsigned char *block, int length));
+
 void update_digest(digest_ctx *context, const unsigned char *input,
                    int input_len);
 void finalize_digest(digest_ctx *context);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
