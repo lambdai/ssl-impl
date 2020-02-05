@@ -78,3 +78,50 @@ cc_library(
         ":hex",
     ],
 )
+
+cc_library(
+    name = "dh",
+    hdrs = [
+        "dh.h",
+    ],
+)
+
+cc_library(
+    name = "ecc_int",
+    srcs = [
+        "ecc_int.c",
+    ],
+    hdrs = [
+        "ecc_int.h",
+    ],
+    deps = [
+      #  ":hex",
+    ],
+)
+
+cc_library(
+    name = "huge",
+    srcs = [
+        "huge.c",
+    ],
+    hdrs = [
+        "huge.h",
+    ],
+    deps = [
+        ":hex",
+    ],
+)
+
+cc_library(
+    name = "rsa",
+    srcs = [
+        "rsa.c",
+    ],
+    hdrs = [
+        "rsa.h",
+    ],
+    deps = [
+        ":hex",
+        ":huge",
+    ],
+)
