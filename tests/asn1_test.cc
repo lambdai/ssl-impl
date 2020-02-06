@@ -23,8 +23,7 @@ void EXPECT_HEX_EQ(const std::vector<unsigned int> &lhs,
   EXPECT_EQ(display_as_string, rhs);
 }
 
-TEST(Asn1Test, TestDer) {
-
+TEST(Asn1Test, TestPem) {
   int certificate_file;
   struct stat certificate_file_stat;
   unsigned char *buffer, *bufptr;
@@ -32,7 +31,7 @@ TEST(Asn1Test, TestDer) {
   int bytes_read;
 
   struct asn1struct certificate;
-  const char *file_path;
+  const char *file_path = "/home/lambdai/workspace/tlsimpl/src/data/ssl_public.pem";
   if ((certificate_file = open(file_path, O_RDONLY)) == -1) {
     FAIL() << ("Unable to open certificate file");
   }
@@ -61,6 +60,52 @@ TEST(Asn1Test, TestDer) {
   buffer = (unsigned char *)malloc(buffer_size);
   buffer_size = pem_decode(pem_buffer, buffer);
   free(pem_buffer);
+
+  asn1parse(buffer, buffer_size, &certificate);
+
+  asn1show(0, &certificate);
+
+  asn1free(&certificate);
+}
+
+// I don't have such cert yet.
+TEST(Asn1Test, DISABLED_TestNoPem) {
+  int certificate_file;
+  struct stat certificate_file_stat;
+  unsigned char *buffer, *bufptr;
+  int buffer_size;
+  int bytes_read;
+
+  struct asn1struct certificate;
+  const char *file_path = "/home/lambdai/workspace/tlsimpl/src/data/server.cert";
+  if ((certificate_file = open(file_path, O_RDONLY)) == -1) {
+    FAIL() << ("Unable to open certificate file");
+  }
+
+  // Slurp the whole thing into memory
+  if (fstat(certificate_file, &certificate_file_stat)) {
+    FAIL() << ("Unable to stat certificate file");
+  }
+
+  buffer_size = certificate_file_stat.st_size;
+  buffer = reinterpret_cast<unsigned char *>(malloc(buffer_size));
+
+  if (!buffer) {
+    FAIL() << ("Not enough memory");
+  }
+
+  bufptr = buffer;
+
+  while (bytes_read = read(certificate_file, (void *)buffer,
+                           certificate_file_stat.st_size)) {
+    bufptr += bytes_read;
+  }
+
+//   // XXX this overallocates a bit, since it sets aside space for markers, etc.
+//   unsigned char *pem_buffer = buffer;
+//   buffer = (unsigned char *)malloc(buffer_size);
+//   buffer_size = pem_decode(pem_buffer, buffer);
+//   free(pem_buffer);
 
   asn1parse(buffer, buffer_size, &certificate);
 

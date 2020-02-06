@@ -21,3 +21,15 @@ cc_test(
         "@gtest//:main",
     ],
 )
+
+cc_test(
+    name = "x509_test",
+    srcs = [
+        "x509_test.cc",
+    ],
+    copts = ["-Iexternal/gtest/include"],
+    deps = [
+        "//book:x509",
+        "@gtest//:main",
+    ],
+)

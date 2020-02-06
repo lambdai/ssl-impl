@@ -235,6 +235,25 @@ cc_library(
     ],
 )
 
+cc_library(
+    name = "x509",
+    srcs = [
+        "x509.c",
+    ],
+    hdrs = [
+        "x509.h",
+    ],
+    deps = [
+        ":asn1",
+        ":digest",
+        ":dsa",
+        ":huge",
+        ":md5",
+        ":rsa",
+        ":sha",
+    ],
+)
+
 cc_binary(
     name = "digest-main",
     srcs = [
@@ -262,5 +281,25 @@ cc_binary(
     ],
     deps = [
         ":base64",
+    ],
+)
+
+cc_binary(
+    name = "x509-main",
+    srcs = [
+        "x509.c",
+        "x509.h",
+    ],
+    local_defines = [
+        "TEST_X509=true",
+    ],
+    deps = [
+        ":asn1",
+        ":digest",
+        ":dsa",
+        ":huge",
+        ":md5",
+        ":rsa",
+        ":sha",
     ],
 )
