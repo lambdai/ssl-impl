@@ -1,10 +1,11 @@
 #ifndef X509_H
 #define X509_H
 
+#include <time.h>
+
 #include "dsa.h"
 #include "huge.h"
 #include "rsa.h"
-#include <time.h>
 
 typedef enum { rsa, dsa, dh } algorithmIdentifier;
 
@@ -51,7 +52,7 @@ typedef huge objectIdentifier;
 
 typedef struct {
   int version;
-  huge serialNumber; // This can be much longer than a 4-byte long allows
+  huge serialNumber;  // This can be much longer than a 4-byte long allows
   signatureAlgorithmIdentifier signature;
   name issuer;
   validity_period validity;
@@ -59,12 +60,12 @@ typedef struct {
   public_key_info subjectPublicKeyInfo;
   uniqueIdentifier issuerUniqueId;
   uniqueIdentifier subjectUniqueId;
-  int certificate_authority; // 1 if this is a CA, 0 if not
+  int certificate_authority;  // 1 if this is a CA, 0 if not
 } x509_certificate;
 
 typedef struct {
   x509_certificate tbsCertificate;
-  unsigned int *hash; // hash code of tbsCertificate
+  unsigned int *hash;  // hash code of tbsCertificate
   int hash_len;
   signatureAlgorithmIdentifier algorithm;
   huge rsa_signature_value;

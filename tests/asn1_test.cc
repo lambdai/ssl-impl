@@ -1,5 +1,7 @@
 
 
+#include "book/asn1.h"
+
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +10,6 @@
 #include <iostream>
 #include <vector>
 
-#include "book/asn1.h"
 #include "gtest/gtest.h"
 
 void EXPECT_HEX_EQ(const std::vector<unsigned int> &lhs,
@@ -23,7 +24,7 @@ void EXPECT_HEX_EQ(const std::vector<unsigned int> &lhs,
   EXPECT_EQ(display_as_string, rhs);
 }
 
-TEST(Asn1Test, TestPem) {
+TEST(Asn1Test, DISABLED_TestPem) {
   int certificate_file;
   struct stat certificate_file_stat;
   unsigned char *buffer, *bufptr;
@@ -31,7 +32,8 @@ TEST(Asn1Test, TestPem) {
   int bytes_read;
 
   struct asn1struct certificate;
-  const char *file_path = "/home/lambdai/workspace/tlsimpl/src/data/ssl_public.pem";
+  const char *file_path =
+      "/home/lambdai/workspace/tlsimpl/src/data/ssl_public.pem";
   if ((certificate_file = open(file_path, O_RDONLY)) == -1) {
     FAIL() << ("Unable to open certificate file");
   }
@@ -69,7 +71,7 @@ TEST(Asn1Test, TestPem) {
 }
 
 // I don't have such cert yet.
-TEST(Asn1Test, DISABLED_TestNoPem) {
+TEST(Asn1Test, TestDer) {
   int certificate_file;
   struct stat certificate_file_stat;
   unsigned char *buffer, *bufptr;
@@ -77,7 +79,8 @@ TEST(Asn1Test, DISABLED_TestNoPem) {
   int bytes_read;
 
   struct asn1struct certificate;
-  const char *file_path = "/home/lambdai/workspace/tlsimpl/src/data/server.cert";
+  const char *file_path =
+      "/home/lambdai/workspace/tlsimpl/src/data/book/cert.der";
   if ((certificate_file = open(file_path, O_RDONLY)) == -1) {
     FAIL() << ("Unable to open certificate file");
   }
@@ -101,11 +104,10 @@ TEST(Asn1Test, DISABLED_TestNoPem) {
     bufptr += bytes_read;
   }
 
-//   // XXX this overallocates a bit, since it sets aside space for markers, etc.
-//   unsigned char *pem_buffer = buffer;
-//   buffer = (unsigned char *)malloc(buffer_size);
-//   buffer_size = pem_decode(pem_buffer, buffer);
-//   free(pem_buffer);
+  //   // XXX this overallocates a bit, since it sets aside space for markers,
+  //   etc. unsigned char *pem_buffer = buffer; buffer = (unsigned char
+  //   *)malloc(buffer_size); buffer_size = pem_decode(pem_buffer, buffer);
+  //   free(pem_buffer);
 
   asn1parse(buffer, buffer_size, &certificate);
 

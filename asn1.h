@@ -2,9 +2,9 @@
 #define ASN1_H
 
 struct asn1struct {
-  int constructed; // bit 6 of the identifier byte
-  int tag_class;   // bits 7-8 of the identifier byte
-  int tag;         // bits 1-5 of the identifier byte
+  int constructed;  // bit 6 of the identifier byte
+  int tag_class;    // bits 7-8 of the identifier byte
+  int tag;          // bits 1-5 of the identifier byte
   int length;
   const unsigned char *data;
   struct asn1struct *children;

@@ -109,37 +109,37 @@ void asn1free(struct asn1struct *node) {
 }
 
 static char *tag_names[] = {
-    "BER",                        // 0
-    "BOOLEAN",                    // 1
-    "INTEGER",                    // 2
-    "BIT STRING",                 // 3
-    "OCTET STRING",               // 4
-    "NULL",                       // 5
-    "OBJECT IDENTIFIER",          // 6
-    "ObjectDescriptor",           // 7
-    "INSTANCE OF, EXTERNAL",      // 8
-    "REAL",                       // 9
-    "ENUMERATED",                 // 10
-    "EMBEDDED PPV",               // 11
-    "UTF8String",                 // 12
-    "RELATIVE-OID",               // 13
-    "undefined(14)",              // 14
-    "undefined(15)",              // 15
-    "SEQUENCE, SEQUENCE OF",      // 16
-    "SET, SET OF",                // 17
-    "NumericString",              // 18
-    "PrintableString",            // 19
-    "TeletexString, T61String",   // 20
-    "VideotexString",             // 21
-    "IA5String",                  // 22
-    "UTCTime",                    // 23
-    "GeneralizedTime",            // 24
-    "GraphicString",              // 25
-    "VisibleString, ISO64String", // 26
-    "GeneralString",              // 27
-    "UniversalString",            // 28
-    "CHARACTER STRING",           // 29
-    "BMPString"                   // 30
+    "BER",                         // 0
+    "BOOLEAN",                     // 1
+    "INTEGER",                     // 2
+    "BIT STRING",                  // 3
+    "OCTET STRING",                // 4
+    "NULL",                        // 5
+    "OBJECT IDENTIFIER",           // 6
+    "ObjectDescriptor",            // 7
+    "INSTANCE OF, EXTERNAL",       // 8
+    "REAL",                        // 9
+    "ENUMERATED",                  // 10
+    "EMBEDDED PPV",                // 11
+    "UTF8String",                  // 12
+    "RELATIVE-OID",                // 13
+    "undefined(14)",               // 14
+    "undefined(15)",               // 15
+    "SEQUENCE, SEQUENCE OF",       // 16
+    "SET, SET OF",                 // 17
+    "NumericString",               // 18
+    "PrintableString",             // 19
+    "TeletexString, T61String",    // 20
+    "VideotexString",              // 21
+    "IA5String",                   // 22
+    "UTCTime",                     // 23
+    "GeneralizedTime",             // 24
+    "GraphicString",               // 25
+    "VisibleString, ISO64String",  // 26
+    "GeneralString",               // 27
+    "UniversalString",             // 28
+    "CHARACTER STRING",            // 29
+    "BMPString"                    // 30
 };
 
 void asn1show(int depth, struct asn1struct *certificate) {
@@ -153,56 +153,56 @@ void asn1show(int depth, struct asn1struct *certificate) {
       printf(" ");
     }
     switch (token->tag_class) {
-    case ASN1_CLASS_UNIVERSAL:
-      printf("%s", tag_names[token->tag]);
-      break;
-    case ASN1_CLASS_APPLICATION:
-      printf("application");
-      break;
-    case ASN1_CONTEXT_SPECIFIC:
-      printf("context");
-      break;
-    case ASN1_PRIVATE:
-      printf("private");
-      break;
+      case ASN1_CLASS_UNIVERSAL:
+        printf("%s", tag_names[token->tag]);
+        break;
+      case ASN1_CLASS_APPLICATION:
+        printf("application");
+        break;
+      case ASN1_CONTEXT_SPECIFIC:
+        printf("context");
+        break;
+      case ASN1_PRIVATE:
+        printf("private");
+        break;
     }
     printf(" (%d:%d) ", token->tag, token->length);
 
     if (token->tag_class == ASN1_CLASS_UNIVERSAL) {
       switch (token->tag) {
-      case ASN1_INTEGER:
-        break;
-      case ASN1_BIT_STRING:
-      case ASN1_OCTET_STRING:
-      case ASN1_OBJECT_IDENTIFIER: {
-        int i;
+        case ASN1_INTEGER:
+          break;
+        case ASN1_BIT_STRING:
+        case ASN1_OCTET_STRING:
+        case ASN1_OBJECT_IDENTIFIER: {
+          int i;
 
-        for (i = 0; i < token->length; i++) {
-          printf("%.02x ", token->data[i]);
-        }
-      } break;
-      case ASN1_NUMERIC_STRING:
-      case ASN1_PRINTABLE_STRING:
-      case ASN1_TELETEX_STRING:
-      case ASN1_VIDEOTEX_STRING:
-      case ASN1_IA5_STRING:
-      case ASN1_UTC_TIME:
-      case ASN1_GENERALIZED_TIME:
-      case ASN1_GRAPHIC_STRING:
-      case ASN1_VISIBLE_STRING:
-      case ASN1_GENERAL_STRING:
-      case ASN1_UNIVERSAL_STRING:
-      case ASN1_CHARACTER_STRING:
-      case ASN1_BMP_STRING:
-      case ASN1_UTF8_STRING: {
-        char *str_val = (char *)malloc(token->length + 1);
-        strncpy(str_val, (char *)token->data, token->length);
-        str_val[token->length] = 0;
-        printf(" %s", str_val);
-        free(str_val);
-      } break;
-      default:
-        break;
+          for (i = 0; i < token->length; i++) {
+            printf("%.02x ", token->data[i]);
+          }
+        } break;
+        case ASN1_NUMERIC_STRING:
+        case ASN1_PRINTABLE_STRING:
+        case ASN1_TELETEX_STRING:
+        case ASN1_VIDEOTEX_STRING:
+        case ASN1_IA5_STRING:
+        case ASN1_UTC_TIME:
+        case ASN1_GENERALIZED_TIME:
+        case ASN1_GRAPHIC_STRING:
+        case ASN1_VISIBLE_STRING:
+        case ASN1_GENERAL_STRING:
+        case ASN1_UNIVERSAL_STRING:
+        case ASN1_CHARACTER_STRING:
+        case ASN1_BMP_STRING:
+        case ASN1_UTF8_STRING: {
+          char *str_val = (char *)malloc(token->length + 1);
+          strncpy(str_val, (char *)token->data, token->length);
+          str_val[token->length] = 0;
+          printf(" %s", str_val);
+          free(str_val);
+        } break;
+        default:
+          break;
       }
     }
 

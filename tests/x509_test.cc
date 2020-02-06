@@ -1,5 +1,7 @@
 
 
+#include "book/x509.h"
+
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,10 +11,9 @@
 #include <vector>
 
 #include "book/asn1.h"
-#include "book/x509.h"
 #include "gtest/gtest.h"
 
-TEST(X509Test, TestPem) {
+TEST(X509Test, TestDer) {
   int certificate_file;
   struct stat certificate_file_stat;
   char *buffer, *bufptr;
@@ -22,7 +23,7 @@ TEST(X509Test, TestPem) {
 
   signed_x509_certificate certificate;
   std::string file_path =
-      "/home/lambdai/workspace/tlsimpl/src/data/server.cert";
+      "/home/lambdai/workspace/tlsimpl/src/data/book/cert1.der";
 
   if ((certificate_file = open(file_path.data(), O_RDONLY)) == -1) {
     FAIL() << ("Unable to open certificate file");
@@ -47,11 +48,11 @@ TEST(X509Test, TestPem) {
 
   // // XXX this overallocates a bit, since it sets aside space for markers,
   // etc.
-  unsigned char *pem_buffer = reinterpret_cast<unsigned char *>(buffer);
-  buffer = reinterpret_cast<char *>(malloc(buffer_size));
-  buffer_size =
-      pem_decode(pem_buffer, reinterpret_cast<unsigned char *>(buffer));
-  free(pem_buffer);
+  // unsigned char *pem_buffer = reinterpret_cast<unsigned char *>(buffer);
+  // buffer = reinterpret_cast<char *>(malloc(buffer_size));
+  // buffer_size =
+  //     pem_decode(pem_buffer, reinterpret_cast<unsigned char *>(buffer));
+  // free(pem_buffer);
 
   // now parse it
   init_x509_certificate(&certificate);
@@ -63,22 +64,22 @@ TEST(X509Test, TestPem) {
 
     // Assume it's a self-signed certificate and try to validate it that
     switch (certificate.algorithm) {
-    case md5WithRSAEncryption:
-    case shaWithRSAEncryption:
-      if (validate_certificate_rsa(&certificate,
-                                   &certificate.tbsCertificate
-                                        .subjectPublicKeyInfo.rsa_public_key)) {
-        printf("Certificate is a valid self-signed certificate.\n");
-      } else {
-        printf("Certificate is corrupt or not self-signed.\n");
-      }
-      break;
-    case shaWithDSA:
-      if (validate_certificate_dsa(&certificate)) {
-        printf("Certificate is a valid self-signed certificate.\n");
-      } else {
-        printf("Certificate is corrupt or not self-signed.\n");
-      }
+      case md5WithRSAEncryption:
+      case shaWithRSAEncryption:
+        if (validate_certificate_rsa(
+                &certificate, &certificate.tbsCertificate.subjectPublicKeyInfo
+                                   .rsa_public_key)) {
+          printf("Certificate is a valid self-signed certificate.\n");
+        } else {
+          printf("Certificate is corrupt or not self-signed.\n");
+        }
+        break;
+      case shaWithDSA:
+        if (validate_certificate_dsa(&certificate)) {
+          printf("Certificate is a valid self-signed certificate.\n");
+        } else {
+          printf("Certificate is corrupt or not self-signed.\n");
+        }
     }
   } else {
     printf("error parsing certificate: %d\n", error_code);
