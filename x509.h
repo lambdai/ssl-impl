@@ -86,6 +86,10 @@ int validate_certificate_rsa(signed_x509_certificate *certificate,
                              rsa_key *public_key);
 int validate_certificate_dsa(signed_x509_certificate *certificate);
 
+char *parse_x509_chain(unsigned char *buffer, int pdu_length,
+                       public_key_info *server_public_key);
+int parse_name(name *target, struct asn1struct *source);
+
 #ifdef __cplusplus
 }
 #endif
