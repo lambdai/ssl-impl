@@ -223,6 +223,56 @@ cc_library(
 )
 
 cc_library(
+    name = "prf",
+    srcs = [
+        "prf.c",
+    ],
+    hdrs = [
+        "prf.h",
+    ],
+    deps = [
+        ":digest",
+        ":hex",
+        ":hmac",
+        ":md5",
+        ":sha",
+    ],
+)
+
+cc_library(
+    name = "tls",
+    srcs = [
+        "tls.c",
+    ],
+    hdrs = [
+        "tls.h",
+    ],
+    deps = [
+        ":aes",
+        ":des",
+        ":dh",
+        ":digest",
+        ":hex",
+        ":hmac",
+        ":md5",
+        ":prf",
+        ":rc4",
+        ":sha",
+        ":x509",
+    ],
+)
+
+cc_binary(
+    name = "https",
+    srcs = [
+        "https.c",
+    ],
+    deps = [
+        ":tls",
+    ],
+)
+
+cc_library(
     name = "asn1",
     srcs = [
         "asn1.c",

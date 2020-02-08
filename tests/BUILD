@@ -1,3 +1,17 @@
+cc_library(
+    name = "test_common",
+    srcs = [
+        "test_common.cc",
+    ],
+    hdrs = [
+        "test_common.h",
+    ],
+    copts = ["-Iexternal/gtest/include"],
+    deps = [
+        "@gtest//:main",
+    ],
+)
+
 cc_test(
     name = "digest_test",
     srcs = [
@@ -30,6 +44,19 @@ cc_test(
     copts = ["-Iexternal/gtest/include"],
     deps = [
         "//book:x509",
+        "@gtest//:main",
+    ],
+)
+
+cc_test(
+    name = "prf_test",
+    srcs = [
+        "prf_test.cc",
+    ],
+    copts = ["-Iexternal/gtest/include"],
+    deps = [
+        ":test_common",
+        "//book:prf",
         "@gtest//:main",
     ],
 )
