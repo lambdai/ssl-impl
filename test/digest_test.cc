@@ -1,4 +1,4 @@
-#include "book/digest.h"
+#include "src/digest.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,10 +7,10 @@
 #include <iostream>
 #include <vector>
 
-#include "book/hex.h"
-#include "book/md5.h"
-#include "book/sha.h"
 #include "gtest/gtest.h"
+#include "src/hex.h"
+#include "src/md5.h"
+#include "src/sha.h"
 
 /*
 jdavies@localhost$ digest -md5 abc

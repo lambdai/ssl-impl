@@ -1,6 +1,6 @@
 
 
-#include "book/asn1.h"
+#include "src/asn1.h"
 
 #include <fcntl.h>
 #include <stdio.h>
@@ -32,8 +32,7 @@ TEST(Asn1Test, DISABLED_TestPem) {
   int bytes_read;
 
   struct asn1struct certificate;
-  const char *file_path =
-      "/home/lambdai/workspace/tlsimpl/src/data/ssl_public.pem";
+  const char *file_path = "data/ssl_public.pem";
   if ((certificate_file = open(file_path, O_RDONLY)) == -1) {
     FAIL() << ("Unable to open certificate file");
   }
@@ -79,8 +78,7 @@ TEST(Asn1Test, TestDer) {
   int bytes_read;
 
   struct asn1struct certificate;
-  const char *file_path =
-      "/home/lambdai/workspace/tlsimpl/src/data/book/cert.der";
+  const char *file_path = "data/cert.der";
   if ((certificate_file = open(file_path, O_RDONLY)) == -1) {
     FAIL() << ("Unable to open certificate file");
   }

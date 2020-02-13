@@ -19,7 +19,7 @@ cc_test(
     ],
     copts = ["-Iexternal/gtest/include"],
     deps = [
-        "//book:digest",
+        "//src:digest",
         "@gtest//:main",
     ],
 )
@@ -31,7 +31,7 @@ cc_test(
     ],
     copts = ["-Iexternal/gtest/include"],
     deps = [
-        "//book:asn1",
+        "//src:asn1",
         "@gtest//:main",
     ],
 )
@@ -43,7 +43,7 @@ cc_test(
     ],
     copts = ["-Iexternal/gtest/include"],
     deps = [
-        "//book:x509",
+        "//src:x509",
         "@gtest//:main",
     ],
 )
@@ -56,7 +56,7 @@ cc_test(
     copts = ["-Iexternal/gtest/include"],
     deps = [
         ":test_common",
-        "//book:prf",
+        "//src:prf",
         "@gtest//:main",
     ],
 )

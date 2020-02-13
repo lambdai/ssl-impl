@@ -1,6 +1,6 @@
 
 
-#include "book/x509.h"
+#include "src/x509.h"
 
 #include <fcntl.h>
 #include <stdio.h>
@@ -10,8 +10,8 @@
 #include <iostream>
 #include <vector>
 
-#include "book/asn1.h"
 #include "gtest/gtest.h"
+#include "src/asn1.h"
 
 TEST(X509Test, TestDer) {
   int certificate_file;
@@ -23,7 +23,7 @@ TEST(X509Test, TestDer) {
 
   signed_x509_certificate certificate;
   std::string file_path =
-      "/home/lambdai/workspace/tlsimpl/src/data/book/cert1.der";
+      "/home/lambdai/workspace/tlsimpl/src/data/src/cert1.der";
 
   if ((certificate_file = open(file_path.data(), O_RDONLY)) == -1) {
     FAIL() << ("Unable to open certificate file");

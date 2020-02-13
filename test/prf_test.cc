@@ -1,11 +1,11 @@
-#include "book/prf.h"
+#include "src/prf.h"
 
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "book/hex.h"
 #include "gtest/gtest.h"
+#include "src/hex.h"
 #include "test_common.h"
 
 /*
