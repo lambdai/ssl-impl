@@ -10,7 +10,11 @@ configure_make(
     ],
     lib_source = "@libopenssl//:all",
     #out_lib_dir = "lib",
+    # $ find -name "*.h" |grep openssl |head -1
+    # ./include/openssl/ts.h
     out_include_dir = "include",
+    # $ find -name "libssl.a"
+    # ./libssl.a
     static_libraries = [
         "libssl.a",
         "libcrypto.a",
@@ -19,6 +23,8 @@ configure_make(
 )
 
 LINKOPTS = [
+    # bazel-out/k8-fastbuild/bin/openssl/lib-openssl/lib/libcrypto.a(threads_pthread.o):threads_pthread.c:
+    #     function CRYPTO_THREAD_lock_new: error: undefined reference to 'pthread_rwlock_init'
     "-lpthread",
     "-ldl",
 ]
